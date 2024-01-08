@@ -1,9 +1,15 @@
 variable "aws_region" {
-  type = string
+  type    = string
+  default = "eu-west-1"
 }
 
-variable "prefix" {
+variable "unique_prefix" {
   type    = string
-  default = "required"
+  default = "any-sample-prefix"
+}
+
+variable "environment" {
+  type    = string
+  default = "test"
 }
 
