@@ -9,6 +9,13 @@ resource "aws_lambda_function" "trigger" {
   source_code_hash = base64sha256(data.archive_file.source.output_path)
   s3_bucket        = aws_s3_bucket.lambda-assets-bucket.id
   s3_key           = aws_s3_object.lambda_source_code_upload.key
+
+  environment {
+    variables = {
+      AWS_REGION     = var.aws_region
+      PROJECT_PREFIX = local.project_prefix
+    }
+  }
 }
 
 resource "aws_iam_role" "lambda_role" {
