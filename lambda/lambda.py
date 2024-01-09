@@ -5,6 +5,7 @@ import logging
 
 logging.getLogger().setLevel(logging.INFO)
 
+
 # env
 aws_region = os.environ["AWS_REGION"]
 project_prefix = os.environ["PROJECT_PREFIX"]
