@@ -3,16 +3,26 @@
 
 ## Prerequisites
 
+### Required
+
  - aws-cli ~ 2.13
  - terraform ~ 1.6 installed, connected with AWS 
+
+### Optional
+
+- pre-commit - suggested for python formatting
+
+    ```
+    pre-commit install
+    ```
 
 ## Deploy
 
 1. First create resources required for [remote backend](https://spacelift.io/blog/terraform-tutorial#remote-backends) (s3 + DynamoDB Table) - all resources in `infrastructure/main.tf`
 
-    ```shell
-    terraform init
-    terraform apply
-    ```
+```shell
+terraform init
+terraform apply
+```
     
 2. Uncomment `terraform` block in `infrastructure/main.tf` an re-deploy again using above commands.

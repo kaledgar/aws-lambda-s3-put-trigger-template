@@ -4,20 +4,10 @@ provider "aws" {
 
 # --- terraform backend ---
 
-terraform {
-  required_version = ">= 1.6.4"
-  backend "s3" {
-    bucket         = "terraform-state-bucket-kaledgar"
-    key            = "global/s3/terraform.tfstate"
-    region         = "eu-west-1"
-    dynamodb_table = "terraform-state-lock-table"
-    encrypt        = true
-  }
-}
 
 # --- s3 bucket for backend ---
 
-resource "aws_s3_bucket" "terraform_state_bucket" {
+resource "aws_s3_bucket" "terraform_state" {
   bucket = "terraform-state-bucket-kaledgar"
   # Prevent accidental deletion of this S3 bucket
 
