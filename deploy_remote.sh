@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Initialize Terraform + deploy resources for remote backend (s3+dynamodb)
-cd remote_state/
+cd infrastructure/remote_state/
 terraform init
 wait $!
 terraform apply -auto-approve
@@ -18,7 +18,7 @@ to manually verify the remote state and update the Digest value stored in the
 DynamoDB table to the following value: 
 '
 
-sleep 2m
+sleep 1m
 
 # Initialize Terraform in /infrastructure with the updated backend configuration
 cd ..
