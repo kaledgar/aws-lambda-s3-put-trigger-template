@@ -1,28 +1,34 @@
-## Architecture Sketch
-![image](https://github.com/kaledgar/s3-file-trigger-lambda/assets/101144906/c5cd5e94-afeb-4fbc-a4e7-d1ed3f2920c9)
+## Description
+
+<p align="center">
+  <img src="misc/s3_to_lambda.png" />
+</p>
+
+This code contains generic template for AWS Lambda function that can be triggered by a PUT event that comes from a specified and expected file uploaded to s3 bucket.
 
 ## Prerequisites
 
 ### Required
 
- - aws-cli ~ 2.13
- - terraform ~ 1.6 installed, connected with AWS 
-
-### Optional
-
-- pre-commit - suggested for python formatting
-
-    ```
-    pre-commit install
-    ```
+- **aws-cli ~ 2.13:** Configured and connected with AWS.
+- **terraform ~ 1.6:** Installed and connected with AWS.
+- **AWS User:** Ensure the AWS user has the necessary policies for creating and reading resources such as Lambda, S3, IAM, and DynamoDB.
 
 ## Deploy
 
-1. First create resources required for [remote backend](https://spacelift.io/blog/terraform-tutorial#remote-backends) (s3 + DynamoDB Table) - all resources in `infrastructure/main.tf`
+### Automated cloud infrastructure deployment
 
+Contains submodule with s3 bucket & dynamodb table for remote backend :)
 ```shell
-terraform init
-terraform apply
+sh deploy_remote.sh
 ```
-    
-2. Uncomment `terraform` block in `infrastructure/main.tf` an re-deploy again using above commands.
+
+### Destroy All Resources
+```shell
+sh destroy_infrastructure.sh
+```
+
+### Pre commit
+```
+pre-commit install
+```

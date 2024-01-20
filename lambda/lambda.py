@@ -1,34 +1,54 @@
 import json
 import os
+from typing import Dict, Any
 
-from typing import Dict, Any, Union
 import boto3
 import datetime
 
+EXPECTED_S3_KEYS = ["file.json"]
+
+# Fetch AWS region and project prefix from environment variables
+aws_region = os.environ["REGION"]
+project_prefix = os.environ["PROJECT_PREFIX"]
+
 
 def lambda_handler(event: Dict, context: Any):
-    """Trigger something
+    """Lambda function handler to process S3 events.
 
     Args:
-        event (Dict): _description_
-        context (Any): _description_
+        event (Dict): AWS Lambda event.
+        context (Any): AWS Lambda context.
     """
-    # env
-    aws_region = os.environ["REGION"]
-    project_prefix = os.environ["PROJECT_PREFIX"]
-    print(f"Env Variables : {aws_region}, {project_prefix}")
-    print(parse_s3_event(event))
+    # Extract S3 bucket and key from the event
+    inc_bucket, inc_key = parse_s3_event(event)
+
+    # Check if the file is expected
+    if inspect_file(file_name=inc_key):
+        print(f"File {inc_key} found in {inc_bucket}!")
 
 
 def parse_s3_event(event: Dict) -> tuple:
-    """_summary_
+    """Extract S3 bucket and key from AWS S3 event.
 
     Args:
-        event (Dict): _description_
+        event (Dict): AWS S3 event.
 
     Returns:
-        tuple: _description_
+        tuple: (bucket, key)
     """
     bucket = event["Records"][0]["s3"]["bucket"]["name"]
     key = event["Records"][0]["s3"]["object"]["key"]
-    return (bucket, key)
+    return bucket, key
+
+
+def inspect_file(file_name: str, allowed_keys: list = EXPECTED_S3_KEYS) -> bool:
+    """Check if the file is expected.
+
+    Args:
+        file_name (str): Name of the file.
+        allowed_keys (list): List of allowed file names.
+
+    Returns:
+        bool: True if the file is expected, False otherwise.
+    """
+    return file_name in allowed_keys

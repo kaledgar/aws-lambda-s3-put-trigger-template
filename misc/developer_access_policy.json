@@ -10,7 +10,8 @@
                 "s3:*",
                 "lambda:*",
                 "dynamodb:*",
-                "ec2:*"
+                "ec2:*",
+                "iam:*"
             ],
             "Resource": "*"
         }
