@@ -1,4 +1,6 @@
-*.pem
+# .zip files - effect of packing .py script
+*.zip
+
 
 # Local .terraform directories
 **/.terraform/*
